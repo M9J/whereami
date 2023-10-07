@@ -4,7 +4,9 @@ export default function TextMap(props) {
   let locationCity = "";
   let locationStateCountry = "";
   if (props?.location?.address) {
-    locationCity = `${props.location.address.city}`;
+    if (props?.location?.address?.city) {
+      locationCity = `${props.location.address.city}`;
+    }
     locationStateCountry = `${props.location.address.state}, ${props.location.address.country}`;
   }
   return (
@@ -18,7 +20,7 @@ export default function TextMap(props) {
       <div className="latitude-longitude-details">
         <div className="latitude-text">LAT: {props?.coordinates?.latitude}</div>
         <div className="longitude-text">
-          LONG: {props?.coordinates?.longitude}
+          LON: {props?.coordinates?.longitude}
         </div>
       </div>
     </div>
