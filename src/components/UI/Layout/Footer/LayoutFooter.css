@@ -1,0 +1,9 @@
+.layout-footer {
+  /* background: #fff; */
+  background: #000;
+  color: #fff;
+  /* box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25); */
+  text-align: center;
+  /* font-size: 0.95em; */
+  padding: 16px;
+}

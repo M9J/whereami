@@ -1,0 +1,44 @@
+.text-map {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.latitude-longitude-details {
+  display: flex;
+  flex-direction: row;
+  /* padding: 16px; */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.latitude-text,
+.longitude-text {
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.current-location {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.current-location-city {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+.current-location-state-country {
+  font-size: 1.5em;
+  font-weight: bold;
+
+}
+button {
+  padding: 16px;
+  font-size: 1.2em;
+  border: 0;
+  background: #fff;
+}
