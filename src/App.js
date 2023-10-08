@@ -39,7 +39,7 @@ export default function App() {
     }
 
     function autoRefreshUE() {
-      let interval1 = setInterval(() => {
+      setInterval(() => {
         getDataUE();
       }, AUTO_REFRESH_DELAY * 1000);
     }
@@ -82,12 +82,6 @@ export default function App() {
 
   function refresh() {
     getData();
-  }
-
-  function autoRefresh() {
-    let interval1 = setInterval(() => {
-      getData();
-    }, AUTO_REFRESH_DELAY * 1000);
   }
 
   return (
