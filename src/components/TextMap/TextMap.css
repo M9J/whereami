@@ -5,10 +5,31 @@
   color: #fff;
 }
 
+.locations {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.locations:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  border: 0;
+  background: linear-gradient(to bottom, transparent, #fff, transparent);
+  left: 16px;
+  content: '';
+}
+
 .latitude-longitude-details {
   display: flex;
   flex-direction: row;
-  /* padding: 16px; */
+  padding: 16px;
   align-items: center;
   justify-content: space-between;
 }
@@ -22,15 +43,31 @@
 
 .current-location {
   display: flex;
-  flex-direction: column;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  align-items: flex-start;
+  position: relative;
+  margin-left: 32px;
+}
+
+.current-location:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -25px;
+  width: 16px;
+  height: 16px;
+  background-color: #000;
+  border: 2px solid #fff;
+  top: 50%;
+  transform: translate(0, -50%);
+  border-radius: 100%;
 }
 
 .current-location-summary {
+  flex: 1;
   font-size: 1em;
   font-weight: bold;
+  padding: 16px;
 }
 .current-location-details {
   padding: 16px;
@@ -47,7 +84,6 @@
 
 .detail-description {
   font-weight: bold;
-  /* font-size: 1.25em; */
 }
 
 .hidden {

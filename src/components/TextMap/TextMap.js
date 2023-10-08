@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import "./TextMap.css";
 
@@ -35,64 +36,63 @@ export default function TextMap(props) {
 
   return (
     <div className="text-map">
-      <div className="current-location">
-        {!isShowingDetails && (
-          <div className="current-location-summary" onClick={toggleDetails}>
-            {summary[0] && <div>{summary[0].join(", ")}</div>}
-            {summary[1] && <div>{summary[1].join(", ")}</div>}
-            {summary[2] && <div>{summary[2].join(", ")}</div>}
-            {summary[3] && <div>{summary[3].join(", ")}</div>}
-          </div>
-        )}
-        {!isShowingSummary && (
-          <div className="current-location-details" onClick={toggleDetails}>
-            <div className="detail-title">
-              Neighbourhood:{" "}
-              <div className="detail-description">{neighbourhood || "-"}</div>
+      <div className="locations">
+        <div className="current-location">
+          {!isShowingDetails && (
+            <div className="current-location-summary" onClick={() => {}}>
+              <LocationSummary summary={summary} />
             </div>
-
-            <div className="detail-title">
-              Village:{" "}
-              <div className="detail-description">{village || "-"}</div>
+          )}
+          {!isShowingSummary && (
+            <div className="current-location-details" onClick={toggleDetails}>
+              <LocationDetail label="Neighbourhood" value={neighbourhood} />
+              <LocationDetail label="Village" value={village} />
+              <LocationDetail label="Suburb" value={suburb} />
+              <LocationDetail label="Town" value={town} />
+              <LocationDetail label="City" value={city} />
+              <LocationDetail label="District" value={stateDistrict} />
+              <LocationDetail label="State" value={state} />
+              <LocationDetail label="Country" value={country} />
+              <LocationDetail label="Postcode" value={postcode} />
             </div>
-
-            <div className="detail-title">
-              Suburb: <div className="detail-description">{suburb || "-"}</div>
-            </div>
-
-            <div className="detail-title">
-              Town: <div className="detail-description">{town || "-"}</div>
-            </div>
-
-            <div className="detail-title">
-              City: <div className="detail-description">{city || "-"}</div>
-            </div>
-
-            <div className="detail-title">
-              District:{" "}
-              <div className="detail-description">{stateDistrict || "-"}</div>
-            </div>
-
-            <div className="detail-title">
-              State: <div className="detail-description">{state || "-"}</div>
-            </div>
-
-            <div className="detail-title">
-              Country:{" "}
-              <div className="detail-description">{country || "-"}</div>
-            </div>
-
-            <div className="detail-title">
-              Postcode:{" "}
-              <div className="detail-description">{postcode || "-"}</div>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <div className="latitude-longitude-details">
-        <div className="latitude-text">{latitude && `LAT: ${latitude}`}</div>
-        <div className="longitude-text">{longitude && `LON: ${longitude}`}</div>
+        <LatitudeLongitude latitude={latitude} longitude={longitude} />
       </div>
     </div>
+  );
+}
+
+function LocationDetail(props) {
+  return (
+    <div className="detail-title">
+      {props.label}:{" "}
+      <div className="detail-description">{props.value || "-"}</div>
+    </div>
+  );
+}
+
+function LocationSummary(props) {
+  let summary = props.summary;
+  return (
+    <React.Fragment>
+      {summary[0] && <div>{summary[0].join(", ")}</div>}
+      {summary[1] && <div>{summary[1].join(", ")}</div>}
+      {summary[2] && <div>{summary[2].join(", ")}</div>}
+      {summary[3] && <div>{summary[3].join(", ")}</div>}
+    </React.Fragment>
+  );
+}
+
+function LatitudeLongitude(props) {
+  const latitude = props.latitude;
+  const longitude = props.longitude;
+  return (
+    <React.Fragment>
+      <div className="latitude-text">{latitude && `LAT: ${latitude}`}</div>
+      <div className="longitude-text">{longitude && `LON: ${longitude}`}</div>
+    </React.Fragment>
   );
 }

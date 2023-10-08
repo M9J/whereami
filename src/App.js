@@ -12,7 +12,7 @@ import { getLocationByCoordinates } from "./util/openstreetmap/geo";
 import {
   ALERT_TIMEOUT,
   AUTO_REFRESH_DELAY,
-  AUTO_REFRESH_ENABLED,
+  AUTO_REFRESH_ENABLED
 } from "./App.config";
 
 export default function App() {
