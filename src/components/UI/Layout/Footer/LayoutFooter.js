@@ -3,7 +3,7 @@ import "./LayoutFooter.css";
 export default function LayoutFooter() {
   return (
     <div className="layout-footer">
-      &copy; 2023 Linearmapp
+      &copy; 2023 Linearmapp | Data &copy; OpenStreetMap contributors
     </div>
   );
 }
