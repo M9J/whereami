@@ -12,26 +12,23 @@ export default function TextMap(props) {
   let suburb = address?.suburb || null;
   let town = address?.town || null;
   let village = address?.village || null;
-  let summaryLine1 = [];
-  let summaryLine2 = [];
-  let summaryLine3 = [];
-  let summaryLine4 = [];
-  if (neighbourhood) summaryLine1.push(neighbourhood);
-  if (village) summaryLine1.push(village);
-  if (suburb) summaryLine2.push(suburb);
-  if (town) summaryLine2.push(town);
-  if (city) summaryLine3.push(city);
-  if (stateDistrict) summaryLine3.push(stateDistrict);
-  if (state) summaryLine4.push(state);
-  if (country) summaryLine4.push(country);
+  let summary = [[], [], [], []];
+  if (neighbourhood) summary[0].push(neighbourhood);
+  if (village) summary[0].push(village);
+  if (suburb) summary[1].push(suburb);
+  if (town) summary[1].push(town);
+  if (city) summary[2].push(city);
+  if (stateDistrict) summary[2].push(stateDistrict);
+  if (state) summary[3].push(state);
+  if (country) summary[3].push(country);
   return (
     <div className="text-map">
       <div className="current-location">
         <div className="current-location-summary">
-          {summaryLine1 && summaryLine1.join(", ")} <br />
-          {summaryLine2 && summaryLine2.join(", ")} <br />
-          {summaryLine3 && summaryLine3.join(", ")} <br />
-          {summaryLine4 && summaryLine4.join(", ")} <br />
+          {summary[0] && summary[0].join(", ")} <br />
+          {summary[1] && summary[1].join(", ")} <br />
+          {summary[2] && summary[2].join(", ")} <br />
+          {summary[3] && summary[3].join(", ")} <br />
         </div>
         <div className="current-location-details hidden">
           Neighbourhood: {neighbourhood}, Village: {village} <br />
