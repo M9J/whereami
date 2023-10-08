@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/linearmapp/static/css/main.c05e7366.css",
+    "main.css": "/linearmapp/static/css/main.85bffa99.css",
     "main.js": "/linearmapp/static/js/main.d5fe383f.js",
     "index.html": "/linearmapp/index.html",
-    "main.c05e7366.css.map": "/linearmapp/static/css/main.c05e7366.css.map",
+    "main.85bffa99.css.map": "/linearmapp/static/css/main.85bffa99.css.map",
     "main.d5fe383f.js.map": "/linearmapp/static/js/main.d5fe383f.js.map"
   },
   "entrypoints": [
-    "static/css/main.c05e7366.css",
+    "static/css/main.85bffa99.css",
     "static/js/main.d5fe383f.js"
   ]
 }
