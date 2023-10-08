@@ -1,6 +1,8 @@
 import "./TextMap.css";
 
 export default function TextMap(props) {
+  let latitude = props?.coordinates?.latitude || null;
+  let longitude = props?.coordinates?.longitude || null;
   let location = props?.location;
   let address = location?.address;
   let city = address?.city || null;
@@ -39,10 +41,8 @@ export default function TextMap(props) {
         </div>
       </div>
       <div className="latitude-longitude-details">
-        <div className="latitude-text">LAT: {props?.coordinates?.latitude}</div>
-        <div className="longitude-text">
-          LON: {props?.coordinates?.longitude}
-        </div>
+        <div className="latitude-text">{latitude && `LAT: ${latitude}`}</div>
+        <div className="longitude-text">{longitude && `LON: ${longitude}`}</div>
       </div>
     </div>
   );
