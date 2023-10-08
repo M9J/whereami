@@ -1,10 +1,32 @@
 .layout-header {
   padding: 16px;
-  /* box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.25); */
-  /* background-color: #fff; */
-  background-color: #000;
   color: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.layout-header-text {
   font-weight: 100;
   font-size: 2em;
   letter-spacing: 1.5px;
+}
+
+.layout-header-refresh-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.layout-header-refresh-button button {
+  background: transparent;
+  border: 0;
+}
+.layout-header-refresh-button svg {
+  width: 32px;
+  height: 32px;
+  stroke: none;
+  fill: #fff;
+  stroke-opacity: 0;
 }
