@@ -1,8 +1,11 @@
-const apiV1 = (lat, lon) =>
-  `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-const apiV2 = (lat, lon) =>
-  `https://geocode.maps.co/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-const api = apiV2;
+const apis = {
+  apiV1: (lat, lon) =>
+    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`,
+  apiV2: (lat, lon) =>
+    `https://geocode.maps.co/reverse?format=jsonv2&lat=${lat}&lon=${lon}`,
+};
+
+const api = apis.apiV2;
 
 export async function getLocationByCoordinates(latitude, longitude) {
   if (latitude && longitude) {
