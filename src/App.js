@@ -21,9 +21,32 @@ export default function App() {
   const [alertMessage, setAlertMessage] = useState(null);
 
   useEffect(() => {
+    async function getDataUE() {
+      alertToLayout("Fetching...", true);
+      const coordinates = await getCoordinates();
+      // const coordinates = await getCoordinatesTest();
+      if (coordinates) {
+        setCoordinates(coordinates);
+        const locationResponse = await getLocationByCoordinates(
+          coordinates.latitude,
+          coordinates.longitude
+        );
+        if (locationResponse.status) {
+          alertToLayout("Fetched.");
+          setLocation(locationResponse.data);
+        } else alertToLayout(locationResponse.message);
+      }
+    }
+
+    function autoRefreshUE() {
+      let interval1 = setInterval(() => {
+        getDataUE();
+      }, AUTO_REFRESH_DELAY * 1000);
+    }
+
     setDocumentTitle();
-    getData();
-    if (AUTO_REFRESH_ENABLED) autoRefresh();
+    getDataUE();
+    if (AUTO_REFRESH_ENABLED) autoRefreshUE();
   }, []);
 
   function setDocumentTitle() {
