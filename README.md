@@ -1,4 +1,6 @@
-![example workflow](https://github.com/M9J/linearmapp/actions/workflows/actions/badge.svg)
+![ACTIONS](https://github.com/M9J/linearmapp/actions/workflows/actions/badge.svg)
+![BUILD](https://github.com/M9J/linearmapp/actions/workflows/build/badge.svg)
+![PUSH](https://github.com/M9J/linearmapp/actions/workflows/push/badge.svg)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
