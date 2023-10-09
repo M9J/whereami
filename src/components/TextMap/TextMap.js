@@ -60,6 +60,7 @@ export default function TextMap(props) {
             <LocationDetail label="Suburb" value={suburb} />
             <LocationDetail label="Town" value={town} />
             <LocationDetail label="City" value={city} />
+            <LocationDetail label="County" value={county} />
             <LocationDetail label="District" value={district} />
             <LocationDetail label="State" value={state} />
             <LocationDetail label="Country" value={country} />
