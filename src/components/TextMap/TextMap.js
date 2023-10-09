@@ -8,11 +8,12 @@ export default function TextMap(props) {
   let location = props?.location;
   let address = location?.address;
   let city = address?.city || null;
+  let county = address?.county || null;
   let country = address?.country || null;
   let neighbourhood = address?.neighbourhood || null;
   let postcode = address?.postcode || null;
   let state = address?.state || null;
-  let stateDistrict = address?.state_district || null;
+  let district = address?.state_district || null;
   let suburb = address?.suburb || null;
   let town = address?.town || null;
   let village = address?.village || null;
@@ -22,7 +23,8 @@ export default function TextMap(props) {
   if (suburb) summary[1].push(suburb);
   if (town) summary[1].push(town);
   if (city) summary[2].push(city);
-  if (stateDistrict) summary[2].push(stateDistrict);
+  if (county) summary[2].push(county);
+  if (district) summary[2].push(district);
   if (state) summary[3].push(state);
   if (country) summary[3].push(country);
 
@@ -35,33 +37,37 @@ export default function TextMap(props) {
   }
 
   return (
-    <div className="text-map">
-      <div className="locations">
-        <div className="current-location">
-          {!isShowingDetails && (
-            <div className="current-location-summary" onClick={() => {}}>
-              <LocationSummary summary={summary} />
+    <React.Fragment>
+      {!isShowingDetails && (
+        <div className="text-map">
+          <div className="locations">
+            <div className="current-location">
+              <div className="current-location-summary" onClick={toggleDetails}>
+                <LocationSummary summary={summary} />
+              </div>
             </div>
-          )}
-          {!isShowingSummary && (
-            <div className="current-location-details" onClick={toggleDetails}>
-              <LocationDetail label="Neighbourhood" value={neighbourhood} />
-              <LocationDetail label="Village" value={village} />
-              <LocationDetail label="Suburb" value={suburb} />
-              <LocationDetail label="Town" value={town} />
-              <LocationDetail label="City" value={city} />
-              <LocationDetail label="District" value={stateDistrict} />
-              <LocationDetail label="State" value={state} />
-              <LocationDetail label="Country" value={country} />
-              <LocationDetail label="Postcode" value={postcode} />
-            </div>
-          )}
+          </div>
+          <div className="latitude-longitude-details">
+            <LatitudeLongitude latitude={latitude} longitude={longitude} />
+          </div>
         </div>
-      </div>
-      <div className="latitude-longitude-details">
-        <LatitudeLongitude latitude={latitude} longitude={longitude} />
-      </div>
-    </div>
+      )}
+      {!isShowingSummary && (
+        <div className="text-map-details">
+          <div className="current-location-details" onClick={toggleDetails}>
+            <LocationDetail label="Neighbourhood" value={neighbourhood} />
+            <LocationDetail label="Village" value={village} />
+            <LocationDetail label="Suburb" value={suburb} />
+            <LocationDetail label="Town" value={town} />
+            <LocationDetail label="City" value={city} />
+            <LocationDetail label="District" value={district} />
+            <LocationDetail label="State" value={state} />
+            <LocationDetail label="Country" value={country} />
+            <LocationDetail label="Postcode" value={postcode} />
+          </div>
+        </div>
+      )}
+    </React.Fragment>
   );
 }
 

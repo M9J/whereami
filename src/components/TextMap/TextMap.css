@@ -72,7 +72,8 @@
 .current-location-details {
   padding: 16px;
   font-size: 1em;
-  border: 2px solid #fff;
+  /* border: 2px solid #fff; */
+  color: #fff;
 }
 
 .detail-title {
@@ -88,4 +89,9 @@
 
 .hidden {
   display: none;
+}
+
+.text-map-details {
+  display: flex;
+  flex-direction: column;
 }
