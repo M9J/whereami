@@ -7,13 +7,18 @@ import LayoutFooter from "./components/UI/Layout/Footer/LayoutFooter";
 import LayoutHeader from "./components/UI/Layout/Header/LayoutHeader";
 import LayoutStatus from "./components/UI/Layout/Status/LayoutStatus";
 import { getCoordinates } from "./util/navigator/geolocation";
-import { getLocationByCoordinates } from "./util/openstreetmap/geo";
+import {
+  APIS,
+  getLocationByCoordinates,
+  updateCurrentApi,
+} from "./util/openstreetmap/geo";
 
 import {
   ALERT_TIMEOUT,
   AUTO_REFRESH_DELAY,
-  AUTO_REFRESH_ENABLED
+  AUTO_REFRESH_ENABLED,
 } from "./App.config";
+import * as DEFAULT_QUEUE from "./util/queue/queue.v2";
 
 export default function App() {
   const [coordinates, setCoordinates] = useState("");
@@ -21,6 +26,7 @@ export default function App() {
   const [alertMessage, setAlertMessage] = useState(null);
 
   useEffect(() => {
+    updateCurrentApi(APIS.apiV2);
     async function getDataUE() {
       alertToLayout("Fetching...", true);
       const coordinates = await getCoordinates();
@@ -41,14 +47,17 @@ export default function App() {
     function autoRefreshUE() {
       let timeout1 = setTimeout(() => {
         clearTimeout(timeout1);
-        getDataUE();
+        DEFAULT_QUEUE.add(() => getDataUE());
         autoRefreshUE();
       }, AUTO_REFRESH_DELAY * 1000);
     }
 
     setDocumentTitle();
-    getDataUE();
-    if (AUTO_REFRESH_ENABLED) autoRefreshUE();
+    DEFAULT_QUEUE.add(() => getDataUE());
+    if (AUTO_REFRESH_ENABLED) {
+      autoRefreshUE();
+    }
+    DEFAULT_QUEUE.start();
   }, []);
 
   function setDocumentTitle() {
@@ -73,17 +82,19 @@ export default function App() {
   }
 
   function alertToLayout(message, isStatic = false) {
-    setAlertMessage(message);
+    // setAlertMessage(message);
+    DEFAULT_QUEUE.add(() => setAlertMessage(message));
     if (!isStatic) {
       let timeout1 = setTimeout(() => {
         clearTimeout(timeout1);
-        setAlertMessage(null);
+        // setAlertMessage(null);
+        DEFAULT_QUEUE.add(setAlertMessage(null));
       }, ALERT_TIMEOUT * 1000);
     }
   }
 
   function refresh() {
-    getData();
+    DEFAULT_QUEUE.add(() => getData());
   }
 
   return (
