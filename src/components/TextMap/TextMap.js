@@ -53,8 +53,8 @@ export default function TextMap(props) {
         </div>
       )}
       {!isShowingSummary && (
-        <div className="text-map-details">
-          <div className="current-location-details" onClick={toggleDetails}>
+        <div className="text-map-details" onClick={toggleDetails}>
+          <div className="current-location-details">
             <LocationDetail label="Neighbourhood" value={neighbourhood} />
             <LocationDetail label="Village" value={village} />
             <LocationDetail label="Suburb" value={suburb} />

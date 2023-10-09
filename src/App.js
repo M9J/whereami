@@ -39,9 +39,10 @@ export default function App() {
     }
 
     function autoRefreshUE() {
-      let interval1 = setInterval(() => {
+      let timeout1 = setTimeout(() => {
+        clearTimeout(timeout1);
         getDataUE();
-        clearInterval();
+        autoRefreshUE();
       }, AUTO_REFRESH_DELAY * 1000);
     }
 
