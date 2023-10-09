@@ -1,3 +1,5 @@
+![example workflow](https://github.com/M9J/linearmapp/actions/workflows/actions/badge.svg)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
