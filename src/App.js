@@ -39,8 +39,9 @@ export default function App() {
     }
 
     function autoRefreshUE() {
-      setInterval(() => {
+      let interval1 = setInterval(() => {
         getDataUE();
+        clearInterval();
       }, AUTO_REFRESH_DELAY * 1000);
     }
 
