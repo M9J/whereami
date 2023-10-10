@@ -19,16 +19,19 @@ import {
   AUTO_REFRESH_ENABLED,
 } from "./App.config";
 import * as DEFAULT_QUEUE from "./util/queue/queue.v2";
+import { nearByNorthAndSouth } from "./util/nearby/NearBy";
 
 export default function App() {
   const [coordinates, setCoordinates] = useState("");
   const [location, setLocation] = useState("");
+  const [nearbyNorth, setNearbyNorth] = useState(null);
+  const [nearbySouth, setNearbySouth] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
 
   useEffect(() => {
     updateCurrentApi(APIS.apiV2);
     async function getDataUE() {
-      alertToLayout("Fetching...", true);
+      alertToLayout("[AUTO] Fetching...", true);
       const coordinates = await getCoordinates();
       // const coordinates = await getCoordinatesTest();
       if (coordinates) {
@@ -38,8 +41,10 @@ export default function App() {
           coordinates.longitude
         );
         if (locationResponse.status) {
-          alertToLayout("Fetched.");
+          alertToLayout("[AUTO] Fetched.");
           setLocation(locationResponse.data);
+          setNearbyNorth(null);
+          setNearbySouth(null);
         } else alertToLayout(locationResponse.message);
       }
     }
@@ -78,6 +83,40 @@ export default function App() {
         alertToLayout("Fetched.");
         setLocation(locationResponse.data);
       } else alertToLayout(locationResponse.message);
+      // Near by
+      const nearByCoordinates = nearByNorthAndSouth(
+        coordinates.latitude,
+        coordinates.longitude
+      );
+      if (nearByCoordinates) {
+        setNearbyNorth(null);
+        setNearbySouth(null);
+        // console.log(nearByCoordinates);
+        const [nLat, nLon] = nearByCoordinates.N;
+        const [sLat, sLon] = nearByCoordinates.S;
+        DEFAULT_QUEUE.add(async () => {
+          const locationResponseNearbyN = await getLocationByCoordinates(
+            nLat,
+            nLon
+          );
+          // console.log("North", locationResponseNearbyN);
+          // console.log("North", locationResponseNearbyN?.data?.display_name);
+          if (locationResponseNearbyN.status) {
+            setNearbyNorth(locationResponseNearbyN.data);
+          } else alertToLayout(locationResponseNearbyN.message);
+        });
+        DEFAULT_QUEUE.add(async () => {
+          const locationResponseNearbyS = await getLocationByCoordinates(
+            sLat,
+            sLon
+          );
+          // console.log("South", locationResponseNearbyS);
+          // console.log("South", locationResponseNearbyS?.data?.display_name);
+          if (locationResponseNearbyS.status) {
+            setNearbySouth(locationResponseNearbyS.data);
+          } else alertToLayout(locationResponseNearbyS.message);
+        });
+      }
     }
   }
 
@@ -88,7 +127,7 @@ export default function App() {
       let timeout1 = setTimeout(() => {
         clearTimeout(timeout1);
         // setAlertMessage(null);
-        DEFAULT_QUEUE.add(setAlertMessage(null));
+        DEFAULT_QUEUE.add(() => setAlertMessage(null));
       }, ALERT_TIMEOUT * 1000);
     }
   }
@@ -102,7 +141,12 @@ export default function App() {
       <LayoutHeader headerText="Linearmapp" refreshAction={refresh} />
       <LayoutStatus message={alertMessage} />
       <LayoutBody>
-        <TextMap coordinates={coordinates} location={location} />
+        <TextMap
+          coordinates={coordinates}
+          location={location}
+          nearbyNorth={nearbyNorth}
+          nearbySouth={nearbySouth}
+        />
       </LayoutBody>
       <LayoutFooter />
     </React.Fragment>

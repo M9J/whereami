@@ -1,6 +1,7 @@
 import { QUEUE_DELAY } from "../../App.config";
 
 let _queue = [];
+let _isRunning = false;
 
 function enQueue(item) {
   _queue.push({
@@ -26,17 +27,21 @@ function runQueue() {
   const hasQueueItem = dequedItem ? dequedItem.id : false;
   if (hasQueueItem) {
     if (typeof dequedItem.item === "function") {
-      // console.log(dequedItem);
+      console.log(dequedItem);
       dequedItem.item();
     }
   }
 }
 
 function loopQueue() {
+  // console.log("Queue is running...", _isRunning);
   let timeout1 = setTimeout(() => {
     clearTimeout(timeout1);
     if (hasQueue()) {
+      if (!_isRunning) _isRunning = true;
       runQueue();
+    } else {
+      _isRunning = false;
     }
     loopQueue();
   }, QUEUE_DELAY * 1000);
