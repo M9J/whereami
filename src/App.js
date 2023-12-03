@@ -105,11 +105,11 @@ export default function App() {
       </LayoutBackground>
       <LayoutForeground>
         <LayoutHeader headerText="Where Am I" refreshAction={refresh} />
-        <LayoutStatus message={alertMessage} />
+        {alertMessage && <LayoutStatus message={alertMessage} />}
         <LayoutBody>
           <TextMap coordinates={coordinates} location={location} />
         </LayoutBody>
-        <LayoutFooter />
+        {/* <LayoutFooter /> */}
       </LayoutForeground>
     </React.Fragment>
   );

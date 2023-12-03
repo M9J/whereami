@@ -17,22 +17,31 @@ export default function TextMap(props) {
     <React.Fragment>
       <div className="text-map">
         {location && (
+          <div className="locations">
+            <CurrentLocation
+              location={location}
+              toggleDetails={toggleDetails}
+            />
+          </div>
+        )}
+        {isShowingDetails && (
           <React.Fragment>
-            <div className="locations">
-              <CurrentLocation
-                location={location}
-                toggleDetails={toggleDetails}
-              />
-            </div>
             <div className="latitude-longitude-details">
               <LatitudeLongitude latitude={latitude} longitude={longitude} />
             </div>
+            <div className="text-map-details" onClick={toggleDetails}>
+              <LocationDetails location={location} />
+            </div>
+            <div className="text-map-copyright-credits">
+              User Interface &copy;{" "}
+              <a href="https://m9j.github.io/whereami/">WhereAmI</a>
+              <br />
+              Data &copy;{" "}
+              <a href="https://www.openstreetmap.org/">OpenStreetMap</a>{" "}
+              contributors <br />
+              Images &copy; <a href="https://unsplash.com/">Unsplash</a>
+            </div>
           </React.Fragment>
-        )}
-        {isShowingDetails && (
-          <div className="text-map-details" onClick={toggleDetails}>
-            <LocationDetails location={location} />
-          </div>
         )}
       </div>
     </React.Fragment>
