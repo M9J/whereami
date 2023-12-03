@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 import "./App.css";
-import TextMap from "./components/TextMap/TextMap";
 import MapImage from "./components/MapImage/MapImage";
+import TextMap from "./components/TextMap/TextMap";
 import LayoutBackground from "./components/UI/Layout/Background/LayoutBackground";
 import LayoutBody from "./components/UI/Layout/Body/LayoutBody";
-import LayoutFooter from "./components/UI/Layout/Footer/LayoutFooter";
 import LayoutForeground from "./components/UI/Layout/Foreground/LayoutForeground";
 import LayoutHeader from "./components/UI/Layout/Header/LayoutHeader";
 import LayoutStatus from "./components/UI/Layout/Status/LayoutStatus";
@@ -13,13 +12,13 @@ import { getCoordinates } from "./util/navigator/geolocation";
 import {
   APIS,
   getLocationByCoordinates,
-  updateCurrentApi,
+  updateCurrentApi
 } from "./util/openstreetmap/geo";
 
 import {
   ALERT_TIMEOUT,
   AUTO_REFRESH_DELAY,
-  AUTO_REFRESH_ENABLED,
+  AUTO_REFRESH_ENABLED
 } from "./App.config";
 import * as DEFAULT_QUEUE from "./util/queue/queue.v2";
 
@@ -109,7 +108,6 @@ export default function App() {
         <LayoutBody>
           <TextMap coordinates={coordinates} location={location} />
         </LayoutBody>
-        {/* <LayoutFooter /> */}
       </LayoutForeground>
     </React.Fragment>
   );
