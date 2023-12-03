@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/whereami/static/css/main.79d73430.css",
-    "main.js": "/whereami/static/js/main.4851f6fb.js",
+    "main.css": "/whereami/static/css/main.6b1dbf41.css",
+    "main.js": "/whereami/static/js/main.9f8db431.js",
     "index.html": "/whereami/index.html",
-    "main.79d73430.css.map": "/whereami/static/css/main.79d73430.css.map",
-    "main.4851f6fb.js.map": "/whereami/static/js/main.4851f6fb.js.map"
+    "main.6b1dbf41.css.map": "/whereami/static/css/main.6b1dbf41.css.map",
+    "main.9f8db431.js.map": "/whereami/static/js/main.9f8db431.js.map"
   },
   "entrypoints": [
-    "static/css/main.79d73430.css",
-    "static/js/main.4851f6fb.js"
+    "static/css/main.6b1dbf41.css",
+    "static/js/main.9f8db431.js"
   ]
 }
