@@ -3,8 +3,8 @@ import { useState } from "react";
 import "./TextMap.css";
 
 export default function TextMap(props) {
-  let nearbyNorth = props?.nearbyNorth;
-  let nearbySouth = props?.nearbySouth;
+  // let nearbyNorth = props?.nearbyNorth;
+  // let nearbySouth = props?.nearbySouth;
   // console.log(nearbyNorth, nearbySouth)
   let latitude = props?.coordinates?.latitude || null;
   let longitude = props?.coordinates?.longitude || null;
@@ -46,7 +46,7 @@ function CurrentLocation(props) {
   return (
     <div className="current-location">
       <div className="current-location-icon">
-        <img src={process.env.PUBLIC_URL + "/icons/location-pin.svg"}/>
+        <img src={process.env.PUBLIC_URL + "/icons/location-pin.svg"} alt="" />
       </div>
       <div className="current-location-summary" onClick={toggleDetails}>
         <LocationSummary location={location} />
