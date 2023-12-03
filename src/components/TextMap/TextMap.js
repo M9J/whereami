@@ -21,22 +21,10 @@ export default function TextMap(props) {
       {!isShowingDetails && (
         <div className="text-map">
           <div className="locations">
-            {nearbyNorth && (
-              <CurrentLocation
-                location={nearbyNorth}
-                toggleDetails={toggleDetails}
-              />
-            )}
             <CurrentLocation
               location={location}
               toggleDetails={toggleDetails}
             />
-            {nearbySouth && (
-              <CurrentLocation
-                location={nearbySouth}
-                toggleDetails={toggleDetails}
-              />
-            )}
           </div>
           <div className="latitude-longitude-details">
             <LatitudeLongitude latitude={latitude} longitude={longitude} />
@@ -57,6 +45,9 @@ function CurrentLocation(props) {
   let toggleDetails = props.toggleDetails;
   return (
     <div className="current-location">
+      <div className="current-location-icon">
+        <img src={process.env.PUBLIC_URL + "/icons/location-pin.svg"}/>
+      </div>
       <div className="current-location-summary" onClick={toggleDetails}>
         <LocationSummary location={location} />
       </div>
@@ -96,7 +87,7 @@ function LocationDetails(props) {
 function LocationDetail(props) {
   return (
     <div className="detail-title">
-      {props.label}:{" "}
+      {props.label}
       <div className="detail-description">{props.value || "-"}</div>
     </div>
   );
@@ -127,10 +118,26 @@ function LocationSummary(props) {
   // let summary = props.summary;
   return (
     <React.Fragment>
-      {summary[0] && <div>{summary[0].join(", ")}</div>}
-      {summary[1] && <div>{summary[1].join(", ")}</div>}
-      {summary[2] && <div>{summary[2].join(", ")}</div>}
-      {summary[3] && <div>{summary[3].join(", ")}</div>}
+      {summary[0] && (
+        <div className="current-location-summary-text">
+          {summary[0].join(", ")}
+        </div>
+      )}
+      {summary[1] && (
+        <div className="current-location-summary-text">
+          {summary[1].join(", ")}
+        </div>
+      )}
+      {summary[2] && (
+        <div className="current-location-summary-text">
+          {summary[2].join(", ")}
+        </div>
+      )}
+      {summary[3] && (
+        <div className="current-location-summary-text">
+          {summary[3].join(", ")}
+        </div>
+      )}
     </React.Fragment>
   );
 }

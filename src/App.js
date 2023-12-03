@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import "./App.css";
 import TextMap from "./components/TextMap/TextMap";
+import MapImage from "./components/MapImage/MapImage";
+import LayoutBackground from "./components/UI/Layout/Background/LayoutBackground";
 import LayoutBody from "./components/UI/Layout/Body/LayoutBody";
 import LayoutFooter from "./components/UI/Layout/Footer/LayoutFooter";
+import LayoutForeground from "./components/UI/Layout/Foreground/LayoutForeground";
 import LayoutHeader from "./components/UI/Layout/Header/LayoutHeader";
 import LayoutStatus from "./components/UI/Layout/Status/LayoutStatus";
 import { getCoordinates } from "./util/navigator/geolocation";
@@ -18,8 +21,8 @@ import {
   AUTO_REFRESH_DELAY,
   AUTO_REFRESH_ENABLED,
 } from "./App.config";
-import * as DEFAULT_QUEUE from "./util/queue/queue.v2";
 import { nearByNorthAndSouth } from "./util/nearby/NearBy";
+import * as DEFAULT_QUEUE from "./util/queue/queue.v2";
 
 export default function App() {
   const [coordinates, setCoordinates] = useState("");
@@ -66,7 +69,7 @@ export default function App() {
   }, []);
 
   function setDocumentTitle() {
-    document.title = "Linearmapp";
+    document.title = "WhereAmI";
   }
 
   async function getData() {
@@ -136,19 +139,40 @@ export default function App() {
     DEFAULT_QUEUE.add(() => getData());
   }
 
+  // return (
+  //   <React.Fragment>
+  //     <LayoutHeader headerText="WhereAmI" refreshAction={refresh} />
+  //     <LayoutStatus message={alertMessage} />
+  //     <LayoutBody>
+  //       <TextMap
+  //         coordinates={coordinates}
+  //         location={location}
+  //         nearbyNorth={nearbyNorth}
+  //         nearbySouth={nearbySouth}
+  //       />
+  //     </LayoutBody>
+  //     <LayoutFooter />
+  //   </React.Fragment>
+  // );
+
   return (
     <React.Fragment>
-      <LayoutHeader headerText="Linearmapp" refreshAction={refresh} />
-      <LayoutStatus message={alertMessage} />
-      <LayoutBody>
-        <TextMap
-          coordinates={coordinates}
-          location={location}
-          nearbyNorth={nearbyNorth}
-          nearbySouth={nearbySouth}
-        />
-      </LayoutBody>
-      <LayoutFooter />
+      <LayoutBackground>
+        <MapImage />
+      </LayoutBackground>
+      <LayoutForeground>
+        <LayoutHeader headerText="Whereami" refreshAction={refresh} />
+        <LayoutStatus message={alertMessage} />
+        <LayoutBody>
+          <TextMap
+            coordinates={coordinates}
+            location={location}
+            nearbyNorth={nearbyNorth}
+            nearbySouth={nearbySouth}
+          />
+        </LayoutBody>
+        <LayoutFooter />
+      </LayoutForeground>
     </React.Fragment>
   );
 }

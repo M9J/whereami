@@ -6,6 +6,9 @@
   align-items: center;
   justify-content: space-between;
   user-select: none;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .layout-header-text {
@@ -24,10 +27,9 @@
   background: transparent;
   border: 0;
 }
-.layout-header-refresh-button svg {
+.layout-header-refresh-button svg,
+.layout-header-refresh-button img {
   width: 32px;
   height: 32px;
-  stroke: none;
-  fill: #fff;
-  stroke-opacity: 0;
+  filter: invert();
 }
