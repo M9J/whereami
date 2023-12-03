@@ -3,37 +3,46 @@ import { useState, useEffect } from "react";
 
 import "./MapImage.css";
 
+const IMAGE_FETCH_DELAY = 10000;
+
 export default function MapImage(props) {
-  const [src, setSrc] = useState(
-    "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-  );
+  const BLANK_IMAGE =
+    "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+  const [src, setSrc] = useState(BLANK_IMAGE);
 
   useEffect(() => {
-    const getRandomImage = async (query = "kerala") => {
-      const randomImageResponse = await fetch(
-        "https://source.unsplash.com/random/?" + query
-      );
-      const randomImage = randomImageResponse?.url;
+    const getRandomImage = async (query) => {
+      if (!query) query = "travel";
+      let address = props.location ? props.location.address : null;
+      let town = address ? address.town : null;
+      let city = address ? address.city : null;
+      let district = address ? address.state_district : null;
+      let state = address ? address.state : null;
+      let country = address ? address.country : null;
+      if (town) query = town;
+      else if (city) query = city;
+      else if (district) query = district;
+      else if (state) query = state;
+      else if (country) query = country;
+      let randomImage = BLANK_IMAGE;
+      try {
+        const randomImageResponse = await fetch(
+          "https://source.unsplash.com/random/?" + query
+        );
+        randomImage = randomImageResponse?.url;
+      } catch (e) {
+        console.log(e);
+      }
       return randomImage;
     };
 
-    const setInitialImage = async () => {
+    const setRandomImage = async () => {
       const randomImage = await getRandomImage();
       if (randomImage) setSrc(randomImage);
     };
 
-    const loopImage = () => {
-      let t1 = setTimeout(async () => {
-        clearTimeout(t1);
-        const randomImage = await getRandomImage();
-        if (randomImage) setSrc(randomImage);
-        loopImage();
-      }, 5000);
-    };
-
-    setInitialImage();
-    loopImage();
-  }, []);
+    setRandomImage();
+  }, [props.location]);
 
   return (
     <div className="map-image-container">

@@ -22,6 +22,7 @@ export default function TextMap(props) {
               location={location}
               toggleDetails={toggleDetails}
             />
+            {/* <br /> */}
           </div>
         )}
         {isShowingDetails && (

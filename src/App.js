@@ -8,17 +8,20 @@ import LayoutBody from "./components/UI/Layout/Body/LayoutBody";
 import LayoutForeground from "./components/UI/Layout/Foreground/LayoutForeground";
 import LayoutHeader from "./components/UI/Layout/Header/LayoutHeader";
 import LayoutStatus from "./components/UI/Layout/Status/LayoutStatus";
-import { getCoordinates } from "./util/navigator/geolocation";
+import {
+  getCoordinates,
+  getCoordinatesTest,
+} from "./util/navigator/geolocation";
 import {
   APIS,
   getLocationByCoordinates,
-  updateCurrentApi
+  updateCurrentApi,
 } from "./util/openstreetmap/geo";
 
 import {
   ALERT_TIMEOUT,
   AUTO_REFRESH_DELAY,
-  AUTO_REFRESH_ENABLED
+  AUTO_REFRESH_ENABLED,
 } from "./App.config";
 import * as DEFAULT_QUEUE from "./util/queue/queue.v2";
 
@@ -31,8 +34,8 @@ export default function App() {
     updateCurrentApi(APIS.apiV2);
     async function getDataUE() {
       alertToLayout("[AUTO] Fetching...", true);
-      const coordinates = await getCoordinates();
-      // const coordinates = await getCoordinatesTest();
+      // const coordinates = await getCoordinates();
+      const coordinates = await getCoordinatesTest();
       if (coordinates) {
         setCoordinates(coordinates);
         const locationResponse = await getLocationByCoordinates(
@@ -68,8 +71,8 @@ export default function App() {
 
   async function getData() {
     alertToLayout("Fetching...", true);
-    const coordinates = await getCoordinates();
-    // const coordinates = await getCoordinatesTest();
+    // const coordinates = await getCoordinates();
+    const coordinates = await getCoordinatesTest();
     if (coordinates) {
       setCoordinates(coordinates);
       const locationResponse = await getLocationByCoordinates(
@@ -100,10 +103,10 @@ export default function App() {
   return (
     <React.Fragment>
       <LayoutBackground>
-        <MapImage />
+        <MapImage location={location} />
       </LayoutBackground>
       <LayoutForeground>
-        <LayoutHeader headerText="Where Am I" refreshAction={refresh} />
+        <LayoutHeader headerText="WhereAmI" refreshAction={refresh} />
         {alertMessage && <LayoutStatus message={alertMessage} />}
         <LayoutBody>
           <TextMap coordinates={coordinates} location={location} />
