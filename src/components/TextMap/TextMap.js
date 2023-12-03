@@ -3,9 +3,6 @@ import { useState } from "react";
 import "./TextMap.css";
 
 export default function TextMap(props) {
-  // let nearbyNorth = props?.nearbyNorth;
-  // let nearbySouth = props?.nearbySouth;
-  // console.log(nearbyNorth, nearbySouth)
   let latitude = props?.coordinates?.latitude || null;
   let longitude = props?.coordinates?.longitude || null;
   let location = props?.location;
@@ -18,24 +15,26 @@ export default function TextMap(props) {
 
   return (
     <React.Fragment>
-      {!isShowingDetails && (
-        <div className="text-map">
-          <div className="locations">
-            <CurrentLocation
-              location={location}
-              toggleDetails={toggleDetails}
-            />
+      <div className="text-map">
+        {location && (
+          <React.Fragment>
+            <div className="locations">
+              <CurrentLocation
+                location={location}
+                toggleDetails={toggleDetails}
+              />
+            </div>
+            <div className="latitude-longitude-details">
+              <LatitudeLongitude latitude={latitude} longitude={longitude} />
+            </div>
+          </React.Fragment>
+        )}
+        {isShowingDetails && (
+          <div className="text-map-details" onClick={toggleDetails}>
+            <LocationDetails location={location} />
           </div>
-          <div className="latitude-longitude-details">
-            <LatitudeLongitude latitude={latitude} longitude={longitude} />
-          </div>
-        </div>
-      )}
-      {isShowingDetails && (
-        <div className="text-map-details" onClick={toggleDetails}>
-          <LocationDetails location={location} />
-        </div>
-      )}
+        )}
+      </div>
     </React.Fragment>
   );
 }

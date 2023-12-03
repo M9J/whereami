@@ -16,11 +16,12 @@
 .latitude-longitude-details {
   display: flex;
   flex-direction: row;
-  padding: 16px;
+  padding: 4px 16px;
   align-items: center;
   justify-content: space-between;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .latitude-text,

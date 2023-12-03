@@ -21,14 +21,11 @@ import {
   AUTO_REFRESH_DELAY,
   AUTO_REFRESH_ENABLED,
 } from "./App.config";
-import { nearByNorthAndSouth } from "./util/nearby/NearBy";
 import * as DEFAULT_QUEUE from "./util/queue/queue.v2";
 
 export default function App() {
   const [coordinates, setCoordinates] = useState("");
   const [location, setLocation] = useState("");
-  const [nearbyNorth, setNearbyNorth] = useState(null);
-  const [nearbySouth, setNearbySouth] = useState(null);
   const [alertMessage, setAlertMessage] = useState(null);
 
   useEffect(() => {
@@ -46,8 +43,6 @@ export default function App() {
         if (locationResponse.status) {
           alertToLayout("[AUTO] Fetched.");
           setLocation(locationResponse.data);
-          setNearbyNorth(null);
-          setNearbySouth(null);
         } else alertToLayout(locationResponse.message);
       }
     }
@@ -69,7 +64,7 @@ export default function App() {
   }, []);
 
   function setDocumentTitle() {
-    document.title = "WhereAmI";
+    document.title = "Where Am I";
   }
 
   async function getData() {
@@ -86,50 +81,14 @@ export default function App() {
         alertToLayout("Fetched.");
         setLocation(locationResponse.data);
       } else alertToLayout(locationResponse.message);
-      // Near by
-      const nearByCoordinates = nearByNorthAndSouth(
-        coordinates.latitude,
-        coordinates.longitude
-      );
-      if (nearByCoordinates) {
-        setNearbyNorth(null);
-        setNearbySouth(null);
-        // console.log(nearByCoordinates);
-        const [nLat, nLon] = nearByCoordinates.N;
-        const [sLat, sLon] = nearByCoordinates.S;
-        DEFAULT_QUEUE.add(async () => {
-          const locationResponseNearbyN = await getLocationByCoordinates(
-            nLat,
-            nLon
-          );
-          // console.log("North", locationResponseNearbyN);
-          // console.log("North", locationResponseNearbyN?.data?.display_name);
-          if (locationResponseNearbyN.status) {
-            setNearbyNorth(locationResponseNearbyN.data);
-          } else alertToLayout(locationResponseNearbyN.message);
-        });
-        DEFAULT_QUEUE.add(async () => {
-          const locationResponseNearbyS = await getLocationByCoordinates(
-            sLat,
-            sLon
-          );
-          // console.log("South", locationResponseNearbyS);
-          // console.log("South", locationResponseNearbyS?.data?.display_name);
-          if (locationResponseNearbyS.status) {
-            setNearbySouth(locationResponseNearbyS.data);
-          } else alertToLayout(locationResponseNearbyS.message);
-        });
-      }
     }
   }
 
   function alertToLayout(message, isStatic = false) {
-    // setAlertMessage(message);
     DEFAULT_QUEUE.add(() => setAlertMessage(message));
     if (!isStatic) {
       let timeout1 = setTimeout(() => {
         clearTimeout(timeout1);
-        // setAlertMessage(null);
         DEFAULT_QUEUE.add(() => setAlertMessage(null));
       }, ALERT_TIMEOUT * 1000);
     }
@@ -139,37 +98,16 @@ export default function App() {
     DEFAULT_QUEUE.add(() => getData());
   }
 
-  // return (
-  //   <React.Fragment>
-  //     <LayoutHeader headerText="WhereAmI" refreshAction={refresh} />
-  //     <LayoutStatus message={alertMessage} />
-  //     <LayoutBody>
-  //       <TextMap
-  //         coordinates={coordinates}
-  //         location={location}
-  //         nearbyNorth={nearbyNorth}
-  //         nearbySouth={nearbySouth}
-  //       />
-  //     </LayoutBody>
-  //     <LayoutFooter />
-  //   </React.Fragment>
-  // );
-
   return (
     <React.Fragment>
       <LayoutBackground>
         <MapImage />
       </LayoutBackground>
       <LayoutForeground>
-        <LayoutHeader headerText="Whereami" refreshAction={refresh} />
+        <LayoutHeader headerText="Where Am I" refreshAction={refresh} />
         <LayoutStatus message={alertMessage} />
         <LayoutBody>
-          <TextMap
-            coordinates={coordinates}
-            location={location}
-            nearbyNorth={nearbyNorth}
-            nearbySouth={nearbySouth}
-          />
+          <TextMap coordinates={coordinates} location={location} />
         </LayoutBody>
         <LayoutFooter />
       </LayoutForeground>
