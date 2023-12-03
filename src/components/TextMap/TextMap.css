@@ -16,7 +16,7 @@
 .latitude-longitude-details {
   display: flex;
   flex-direction: row;
-  padding: 4px 16px;
+  padding: 8px 16px;
   align-items: center;
   justify-content: space-between;
   background: rgba(0, 0, 0, 0.5);
