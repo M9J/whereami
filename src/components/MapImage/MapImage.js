@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 
 import "./MapImage.css";
 
-const IMAGE_FETCH_DELAY = 10000;
-
 export default function MapImage(props) {
   const BLANK_IMAGE =
     "data:image/png;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
