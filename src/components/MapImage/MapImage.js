@@ -12,14 +12,15 @@ export default function MapImage(props) {
     const getRandomImage = async (query) => {
       if (!query) query = "travel";
       let address = props.location ? props.location.address : null;
-      let town = address ? address.town : null;
-      let city = address ? address.city : null;
+      // let town = address ? address.town : null;
+      // let city = address ? address.city : null;
       let district = address ? address.state_district : null;
       let state = address ? address.state : null;
       let country = address ? address.country : null;
-      if (town) query = town;
-      else if (city) query = city;
-      else if (district) query = district;
+      // if (town) query = town;
+      // else if (city) query = city;
+      // else 
+      if (district) query = district;
       else if (state) query = state;
       else if (country) query = country;
       let randomImage = BLANK_IMAGE;
